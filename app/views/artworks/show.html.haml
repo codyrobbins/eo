@@ -1,28 +1,36 @@
 - cache([:artwork, id]) do
-  %h1= artwork.title
-  %h2
-    By
-    = artwork.artist_name
-  %h3
-    Added
-    = time_ago_in_words(artwork.published_at)
-    ago
-  - if artwork.currently_displayed?
-    %h4
-      Currently displayed by
-      = people_count(artwork.users_currently_displaying_count)
-  - if artwork.displayed?
-    %h4
-      Displayed for
-      = distance_of_time_in_words(artwork.total_time_displayed)
-      by
-      = people_count(artwork.users_displayed_count)
-  %h2 Uploaded by
-  = render('user', user: artwork.user)
-  = image_tag(artwork.display_url, alt: "The full artwork for ‘#{artwork.title}’")
-  - if artwork.favorited_by_anyone?
-    %h2 Favorited by
-    = render(partial: 'user', collection: artwork.favorited_by)
+  .page-header
+    %h1
+      = artwork.title
+      %small
+        By
+        = artwork.artist_name
+  .text-center= image_tag(artwork.display_url, alt: "The full artwork for ‘#{artwork.title}’")
+  %h3 Uploaded By
+  .container-fluid
+    = render('user', user: artwork.user)
+    .col-xs-12.col-sm-9.col-md-10
+      %ul.list-group
+        %li.list-group-item
+          %span.glyphicon.glyphicon-hourglass
+          Added
+          = time_ago_in_words(artwork.published_at)
+          ago
+        - if artwork.currently_displayed?
+          %li.list-group-item
+            %span.glyphicon.glyphicon-facetime-video
+            Currently displayed by
+            = people_count(artwork.users_currently_displaying_count)
+        - if artwork.displayed?
+          %li.list-group-item
+            %span.glyphicon.glyphicon-open-eye
+            Displayed for
+            = distance_of_time_in_words(artwork.total_time_displayed)
+            by
+            = people_count(artwork.users_displayed_count)
   - if artwork.recommendations?
-    %h2 Similar artwork
-    = render(artwork.recommendations)
+    %h3 Similar Artwork
+    .container-fluid= render(artwork.recommendations)
+  - if artwork.favorited_by_anyone?
+    %h3 Favorited By
+    .container-fluid= render(partial: 'user', collection: artwork.favorited_by)

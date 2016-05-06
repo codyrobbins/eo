@@ -15,8 +15,8 @@ class User < Model
   # Information.
   public
 
-    def full_name?
-      full_name.present?
+    def name
+      full_name || username
     end
 
     def bio?

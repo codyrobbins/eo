@@ -2,22 +2,30 @@ module ArtworksHelper
   # Pagination.
   public
 
-    def previous_page?
-      page > 1
+    def artworks_page_path(increment)
+      artworks_path(page + increment)
     end
 
-    def artworks_previous_page_path
-      artworks_path(-1)
+    def artworks_path(page)
+      super(page: page)
     end
 
-    def artworks_next_page_path
-      artworks_path(+1)
+    def number_of_pagination_buttons
+      7
+    end
+
+    def pagination_buttons
+      first_pagination_button..last_pagination_button
     end
 
   protected
 
-    def artworks_path(increment)
-      super(page: page + increment)
+    def first_pagination_button
+      [page - ((number_of_pagination_buttons - 1) / 2), 1].max
+    end
+
+    def last_pagination_button
+      first_pagination_button + number_of_pagination_buttons - 1
     end
 
   # People.

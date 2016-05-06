@@ -56,6 +56,10 @@ class Artwork < Model
       users_currently_displaying_count > 0
     end
 
+    def popular?
+      total_time_displayed > 10.hours
+    end
+
     def user
       User.new(@user)
     end

@@ -1,4 +1,10 @@
 - cache([:artwork_list_item, artwork]) do
-  %div
-    = image_tag(artwork.thumbnail_url, alt: "A thumbnail of ‘#{artwork.title}’")
-    %div= link_to(artwork.title, artwork_path(artwork))
+  .col-xs-12.col-sm-6.col-md-4.text-center.artwork-list-item
+    = link_to(artwork_path(artwork)) do
+      = image_tag(artwork.thumbnail_url, alt: "A thumbnail of ‘#{artwork.title}’")
+      %h3= artwork.title
+      %p
+        By
+        = artwork.artist_name
+      - if artwork.popular?
+        .label.label-default Popular
