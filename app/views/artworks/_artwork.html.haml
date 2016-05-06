@@ -1,0 +1,4 @@
+- cache([:artwork_list_item, artwork]) do
+  %div
+    = image_tag(artwork.thumbnail_url, alt: "A thumbnail of ‘#{artwork.title}’")
+    %div= link_to(artwork.title, artwork_path(artwork))

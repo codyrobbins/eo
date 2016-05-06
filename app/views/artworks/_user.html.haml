@@ -1,0 +1,18 @@
+- cache([:user, user.id]) do
+  %div
+    - if user.avatar_url
+      = image_tag(user.avatar_url, alt: "#{user.username}’s avatar")
+    %h1= user.username
+    - if user.full_name?
+      %h2= user.full_name
+    - if user.bio?
+      %div= user.bio
+    %div
+      Followers:
+      = number_with_delimiter(user.followers_count)
+    %div
+      Following:
+      = number_with_delimiter(user.following_count)
+    %div
+      Playlists:
+      = number_with_delimiter(user.playlists_count)

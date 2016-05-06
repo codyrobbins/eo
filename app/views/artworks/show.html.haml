@@ -1,0 +1,28 @@
+- cache([:artwork, id]) do
+  %h1= artwork.title
+  %h2
+    By
+    = artwork.artist_name
+  %h3
+    Added
+    = time_ago_in_words(artwork.published_at)
+    ago
+  - if artwork.currently_displayed?
+    %h4
+      Currently displayed by
+      = people_count(artwork.users_currently_displaying_count)
+  - if artwork.displayed?
+    %h4
+      Displayed for
+      = distance_of_time_in_words(artwork.total_time_displayed)
+      by
+      = people_count(artwork.users_displayed_count)
+  %h2 Uploaded by
+  = render('user', user: artwork.user)
+  = image_tag(artwork.display_url, alt: "The full artwork for ‘#{artwork.title}’")
+  - if artwork.favorited_by_anyone?
+    %h2 Favorited by
+    = render(partial: 'user', collection: artwork.favorited_by)
+  - if artwork.recommendations?
+    %h2 Similar artwork
+    = render(artwork.recommendations)

@@ -1,0 +1,8 @@
+- cache([:artwork, page]) do
+  = render(@artworks)
+  - if previous_page?
+    = link_to('Previous', artworks_previous_page_path)
+  %div
+    Page
+    = number_with_delimiter(page)
+  = link_to('Next', artworks_next_page_path)
