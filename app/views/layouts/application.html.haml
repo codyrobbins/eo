@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %meta{charset: 'utf-8'}
+    %title Electric Objects
+    = stylesheet_link_tag(:application)
+    = javascript_include_tag(:application)
+    = csrf_meta_tags
+  %body= yield
