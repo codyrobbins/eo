@@ -15,10 +15,17 @@ class @ArtworkList extends React.Component
     @setState(artworks: artworks)
 
   render: ->
-    `<div>{this.items()}</div>`
+    `<div>
+  <LoadingIndicator content={this.artworks()} />
+  {this.items()}
+</div>
+`
+
+  artworks: ->
+    @state.artworks
 
   items: ->
-    @state.artworks.map (artwork) =>
+    @artworks().map (artwork) =>
       @itemComponent(artwork)
 
   itemComponent: (artwork) ->

@@ -108,13 +108,10 @@ class @ArtworkDetails extends React.Component
     @recommendedArtworksList() if @recommendedArtworksPresent()
 
   recommendedArtworksPresent: ->
-    @notEmpty(@recommendedArtworks())
+    Utility.isNotEmpty(@recommendedArtworks())
 
   recommendedArtworks: ->
     @state.recommendedArtworks
-
-  notEmpty: (array) ->
-    array?.length > 0
 
   recommendedArtworksList: ->
     `<div>
@@ -127,7 +124,7 @@ class @ArtworkDetails extends React.Component
     @favoritedUsersList() if @favoritedUsersPresent()
 
   favoritedUsersPresent: ->
-    @notEmpty(@favoritedUsers())
+    Utility.isNotEmpty(@favoritedUsers())
 
   favoritedUsers: ->
     @state.favoritedUsers
@@ -135,6 +132,7 @@ class @ArtworkDetails extends React.Component
   favoritedUsersList: ->
     `<div>
   <h3>Favorited By</h3>
+  <LoadingIndicator content={this.favoritedUsers()} />
   <div className="container-fluid">{this.favoritedUserComponents()}</div>
 </div>
 `
