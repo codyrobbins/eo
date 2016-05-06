@@ -1,6 +1,8 @@
 @import bootstrap-sprockets
 @import bootstrap
 
+$modal-distance-from-sides: 50px
+
 @media (max-width: $screen-sm-min)
   .pagination
     width: 100%
@@ -14,3 +16,15 @@ h3
 
 .artwork-list-item h3
   margin-bottom: 0
+
+.artwork-details
+  position: fixed
+  top: $modal-distance-from-sides
+  right: $modal-distance-from-sides
+  bottom: $modal-distance-from-sides
+  left: $modal-distance-from-sides
+  z-index: 1
+  overflow: scroll
+  background-color: white
+  padding: 5px
+  border: 2px solid $brand-primary

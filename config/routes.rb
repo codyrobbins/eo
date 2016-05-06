@@ -14,5 +14,8 @@ Rails.application.routes.draw do
     # Artwork show.
     r.resources(:artworks,
                 only: :show)
+
+    # React.
+    r.get('react' => 'react#index')
   end
 end
