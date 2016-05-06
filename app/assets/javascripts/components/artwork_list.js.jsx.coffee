@@ -4,10 +4,12 @@ class @ArtworkList extends React.Component
     @setInitialState()
 
   setInitialState: ->
-    @state = {artworks: []}
+    @state = @initialState
+
+  initialState: {artworks: []}
 
   componentDidMount: ->
-    jQuery.getJSON('https://jsonp.afeld.me/?url=http://open-api.electricobjects.com/v4/artworks', @didLoadArtworks)
+    API.load('', @didLoadArtworks)
 
   didLoadArtworks: (artworks) =>
     @setState(artworks: artworks)
@@ -16,5 +18,8 @@ class @ArtworkList extends React.Component
     `<div>{this.items()}</div>`
 
   items: ->
-    @state.artworks.map (artwork) ->
-      `<ArtworkListItem artwork={artwork} />`
+    @state.artworks.map (artwork) =>
+      @itemComponent(artwork)
+
+  itemComponent: (artwork) ->
+    `<ArtworkListItem artwork={artwork} />`

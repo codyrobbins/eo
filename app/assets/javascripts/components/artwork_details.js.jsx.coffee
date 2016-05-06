@@ -4,20 +4,25 @@ class @ArtworkDetails extends React.Component
     @setInitialState()
 
   setInitialState: ->
-    @state = {recommendedArtworks: [], favoritedUsers: []}
+    @state = @initialState
+
+  initialState: {
+    recommendedArtworks: [],
+    favoritedUsers: []
+  }
 
   componentDidMount: ->
     @getRecommendedArtworks()
     @getFavoritedUsers()
 
   getRecommendedArtworks: ->
-    @ajax('recommended', @didLoadRecommendedArtworks)
+    @api('recommended', @didLoadRecommendedArtworks)
 
-  didLoadRecommendedArtworks: (artworks) =>
-    @setState(recommendedArtworks: artworks)
+  api: (path, callback) ->
+    API.load(@apiPath(path), callback)
 
-  ajax: (path, callback) ->
-    jQuery.getJSON("https://jsonp.afeld.me/?url=http://open-api.electricobjects.com/v4/artworks/#{@id()}/#{path}", callback)
+  apiPath: (path) ->
+    "#{@id()}/#{path}"
 
   id: ->
     @artwork().id
@@ -25,8 +30,11 @@ class @ArtworkDetails extends React.Component
   artwork: ->
     @props.artwork
 
+  didLoadRecommendedArtworks: (artworks) =>
+    @setState(recommendedArtworks: artworks)
+
   getFavoritedUsers: ->
-    @ajax('users/favorited', @didLoadFavoritedUsers)
+    @api('users/favorited', @didLoadFavoritedUsers)
 
   didLoadFavoritedUsers: (users) =>
     @setState(favoritedUsers: users)
@@ -100,7 +108,10 @@ class @ArtworkDetails extends React.Component
     @recommendedArtworksList() if @recommendedArtworksPresent()
 
   recommendedArtworksPresent: ->
-    @notEmpty(@state.recommendedArtworks)
+    @notEmpty(@recommendedArtworks())
+
+  recommendedArtworks: ->
+    @state.recommendedArtworks
 
   notEmpty: (array) ->
     array?.length > 0
@@ -108,7 +119,7 @@ class @ArtworkDetails extends React.Component
   recommendedArtworksList: ->
     `<div>
   <h3>Similar Artwork</h3>
-  <ArtworkList artwork={this.state.recommendedArtworks} />
+  <ArtworkList artwork={this.recommendedArtworks()} />
 </div>
 `
 
@@ -116,15 +127,21 @@ class @ArtworkDetails extends React.Component
     @favoritedUsersList() if @favoritedUsersPresent()
 
   favoritedUsersPresent: ->
-    @notEmpty(@state.favoritedUsers)
+    @notEmpty(@favoritedUsers())
+
+  favoritedUsers: ->
+    @state.favoritedUsers
 
   favoritedUsersList: ->
     `<div>
   <h3>Favorited By</h3>
-  <div className="container-fluid">{this.favoritedUsers()}</div>
+  <div className="container-fluid">{this.favoritedUserComponents()}</div>
 </div>
 `
 
-  favoritedUsers: ->
-    @state.favoritedUsers.map (user) ->
-      `<User user={user} />`
+  favoritedUserComponents: ->
+    @favoritedUsers().map (user) =>
+      @favoritedUserComponent(user)
+
+  favoritedUserComponent: (user) ->
+    `<User user={user} />`

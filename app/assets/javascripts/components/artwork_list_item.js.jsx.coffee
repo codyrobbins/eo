@@ -4,13 +4,15 @@ class @ArtworkListItem extends React.Component
     @setInitialState()
 
   setInitialState: ->
-    @state = {disclosed: false}
+    @state = @initialState
+
+  initialState: {disclosed: false}
 
   render: ->
     `<div className="col-xs-12 col-sm-6 col-md-4 artwork-list-item">
   <div className="text-center">
     <a href="#" onClick={this.open}>
-      <img src={this.thumbnail_url()} alt={'A thumbnail of ‘' + this.artwork().title + '’'} />
+      <Image images={this.previews()} alt={'A preview of ‘' + this.artwork().title + '’'} />
       <h3>{this.artwork().title}</h3>
       <p>By {this.artwork().artist_name}</p>
     </a>
@@ -20,39 +22,32 @@ class @ArtworkListItem extends React.Component
 `
 
   open: (event) =>
-    @updateDisclosure(event, true)
+    @changeDisclosure(event, true)
 
   close: (event) =>
-    console.log('here')
-    @updateDisclosure(event, false)
+    @changeDisclosure(event, false)
 
-  updateDisclosure: (event, disclosed) ->
+  changeDisclosure: (event, disclosed) ->
     event.preventDefault()
+    @setDisclosed(disclosed)
+
+  setDisclosed: (disclosed) ->
     @setState(disclosed: disclosed)
 
-  thumbnail_url: ->
-    @first_thumbnail().url
+  previews: ->
+    @animated_previews().concat(@static_previews())
 
-  first_thumbnail: ->
-    @thumbnails()[0]
-
-  thumbnails: ->
-    @animated_thumbnails().concat(@static_thumbnails())
-
-  animated_thumbnails: ->
+  animated_previews: ->
     @artwork().animated_previews
 
-  static_thumbnails: ->
+  static_previews: ->
     @artwork().static_previews
 
   artwork: ->
     @props.artwork
 
   detailsIfDisclosed: ->
-    @details() if @disclosed()
-
-  disclosed: ->
-    @state.disclosed
+    @details() if @state.disclosed
 
   details: ->
     `<ArtworkDetails artwork={this.artwork()} closeHandler={this.close} />`
