@@ -5,7 +5,7 @@ class @LoadingIndicator extends React.Component
   indicator: ->
     `<div className="loading-indicator">
   <p>Loading…</p>
-  <img src="/assets/loading.gif" alt="Loading" />
+  <img src="<%= asset_path('loading.gif') %>" alt="Loading" />
 </div>
 ` if @loading()
 
