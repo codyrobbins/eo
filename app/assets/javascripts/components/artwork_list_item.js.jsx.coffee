@@ -7,12 +7,14 @@ class @ArtworkListItem extends React.Component
     @state = {disclosed: false}
 
   render: ->
-    `<div className="col-xs-12 col-sm-6 col-md-4 text-center artwork-list-item">
-  <a href="#" onClick={this.open}>
-    <img src={this.thumbnail_url()} alt={'A thumbnail of ‘' + this.artwork().title + '’'} />
-    <h3>{this.artwork().title}</h3>
-    <p>By {this.artwork().artist_name}</p>
-  </a>
+    `<div className="col-xs-12 col-sm-6 col-md-4 artwork-list-item">
+  <div className="text-center">
+    <a href="#" onClick={this.open}>
+      <img src={this.thumbnail_url()} alt={'A thumbnail of ‘' + this.artwork().title + '’'} />
+      <h3>{this.artwork().title}</h3>
+      <p>By {this.artwork().artist_name}</p>
+    </a>
+  </div>
   {this.detailsIfDisclosed()}
 </div>
 `
