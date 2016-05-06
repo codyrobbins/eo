@@ -17,7 +17,11 @@ class @ArtworkList extends React.Component
   render: ->
     `<div>
   <LoadingIndicator content={this.artworks()} />
-  {this.items()}
+  <div className="container-fluid">
+    <div className="row">
+      {this.items()}
+    </div>
+  </div>
 </div>
 `
 
@@ -29,4 +33,4 @@ class @ArtworkList extends React.Component
       @itemComponent(artwork)
 
   itemComponent: (artwork) ->
-    `<ArtworkListItem artwork={artwork} />`
+    `<ArtworkListItem artwork={artwork} key={artwork.id} />`

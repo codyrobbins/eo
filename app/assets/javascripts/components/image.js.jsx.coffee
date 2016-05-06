@@ -3,13 +3,13 @@ class @Image extends React.Component
     `<img src={this.url()} width={this.width()} height={this.height()} alt={this.props.alt} />`
 
   url: ->
-    @first_image().url
+    @image().url
 
   width: ->
-    @first_image().width
+    @image().width
 
   height: ->
-    @first_image().height
+    @image().height
 
-  first_image: ->
-    @props.images[0]
+  image: ->
+    @props.images[@props.index]

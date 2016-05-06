@@ -42,30 +42,21 @@ class @ArtworkDetails extends React.Component
   render: ->
     `<div className="artwork-details">
   <button type="button" className="close" onClick={this.props.closeHandler}>×</button>
-  <div className="page-header">
-    <h1>
-      {this.artwork().title} <small>By {this.artwork().artist_name}</small>
-    </h1>
-  </div>
-  <div className="text-center">
-    <img src={this.artwork().display_url} alt={'The full artwork for ‘' + this.artwork().title + '’'} />
-  </div>
-  <h3>Uploaded By</h3>
-  <div className="container-fluid">
-    <User user={this.artwork().user} />
-    <div className="col-xs-12 col-sm-9 col-md-10">
-      <ul className="list-group">
-        <li className="list-group-item">
-          <span className="glyphicon glyphicon-hourglass"></span>
-          Added {this.publishedInterval()}
-        </li>
-        {this.currentDisplayInformationIfCurrentlyDisplayed()}
-        {this.displayInformationIfDisplayed()}
-      </ul>
+  <ArtworkHeader artwork={this.artwork()} />
+
+  <div className="container-fluid details">
+    <div className="row">
+      <div className="col-xs-12 col-sm-10">
+        <img src={this.artwork().display_url} alt={'The full artwork for ‘' + this.artwork().title + '’'} className="full-artwork" />
+      </div>
+      <div className="col-xs-12 col-sm-2">
+        <h3 className="uploaded-by">Uploaded By</h3>
+        <User user={this.artwork().user} />
+        {this.favoritedUsersIfPresent()}
+      </div>
     </div>
   </div>
   {this.recommendedArtworksIfPresent()}
-  {this.favoritedUsersIfPresent()}
 </div>
 `
 
@@ -115,7 +106,7 @@ class @ArtworkDetails extends React.Component
 
   recommendedArtworksList: ->
     `<div>
-  <h3>Similar Artwork</h3>
+  <h2 className="recommended-artworks">Browse Similar Artwork</h2>
   <ArtworkList artwork={this.recommendedArtworks()} />
 </div>
 `
@@ -133,7 +124,7 @@ class @ArtworkDetails extends React.Component
     `<div>
   <h3>Favorited By</h3>
   <LoadingIndicator content={this.favoritedUsers()} />
-  <div className="container-fluid">{this.favoritedUserComponents()}</div>
+  {this.favoritedUserComponents()}
 </div>
 `
 
@@ -142,4 +133,4 @@ class @ArtworkDetails extends React.Component
       @favoritedUserComponent(user)
 
   favoritedUserComponent: (user) ->
-    `<User user={user} />`
+    `<User user={user} key={user.id} />`

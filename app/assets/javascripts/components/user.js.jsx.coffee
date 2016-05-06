@@ -1,20 +1,20 @@
 class @User extends React.Component
   render: ->
-    `<div className="col-xs-12 col-sm-3 col-md-2 text-center">
-  <Image images={this.user().avatar_images} alt={this.user().username + '’s avatar'} />
-  <h3>{this.user().username}</h3>
-  <p>
-    <span className="glyphicon glyphicon-user"></span>
-    Followers: {this.user().followers_count}
-  </p>
-  <p>
-    <span className="glyphicon glyphicon-star"></span>
-    Following: {this.user().following_count}
-  </p>
-  <p>
-    <span className="glyphicon glyphicon-list"></span>
-    Playlists: {this.user().playlists_count}
-  </p>
+    `<div className="user">
+  <div>
+    <Image images={this.user().avatar_images} alt={this.user().username + '’s avatar'} index="0" />
+  </div>
+  <div>
+    <h4>{this.user().username}</h4>
+    <div>
+      <span className="glyphicon glyphicon-user"></span>
+      {this.user().followers_count}
+    </div>
+    <div>
+      <span className="glyphicon glyphicon-star"></span>
+      {this.user().following_count}
+    </div>
+  </div>
 </div>
 `
 

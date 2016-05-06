@@ -1,7 +1,17 @@
 @import bootstrap-sprockets
 @import bootstrap
 
-$modal-distance-from-sides: 50px
+$border-radius: 5px
+$padding: $font-size-base * 2
+
+=shadow
+  box-shadow: 0 0 10px 5px #1c1c1c
+
+=container
+  color: white
+  background-color: $gray-dark
+  padding: $font-size-base
+  border-radius: $border-radius
 
 @media (max-width: $screen-sm-min)
   .pagination
@@ -17,14 +27,93 @@ h3
 .artwork-list-item h3
   margin: 0
 
-.artwork-details
-  position: fixed
-  top: $modal-distance-from-sides
-  right: $modal-distance-from-sides
-  bottom: $modal-distance-from-sides
-  left: $modal-distance-from-sides
-  z-index: 1
-  overflow: scroll
-  background-color: white
-  padding: 5px
-  border: 2px solid $brand-primary
+.react
+  background-color: $gray-darker
+
+  a
+    color: white
+
+  h1,
+  h3
+    text-align: left
+
+  .loading-indicator
+    font-size: 28px
+    color: white
+    text-align: center
+    margin: 100px
+
+  .header
+    background-color: black
+    margin: -$font-size-base
+    padding: $font-size-base $font-size-base ($font-size-base / 2) $font-size-base
+    border-radius: $border-radius $border-radius 0 0
+
+  .artwork-list-item
+    padding: $padding
+
+    .container
+      +container
+      width: 100%
+      transition-property: transform, box-shadow
+      transition-duration: 0.25s
+
+      &:hover
+        +shadow
+        transform: scale(1.05)
+
+    .image-container
+      display: flex
+      justify-content: center
+      align-items: center
+      min-height: 450px
+
+  .artwork-details
+    +container
+    +shadow
+    position: fixed
+    top: $padding
+    right: $padding
+    bottom: $padding
+    left: $padding
+    z-index: 1
+    overflow: scroll
+
+    .close
+      font-size: $font-size-base * 3
+      color: white
+      margin-right: 10px
+
+    .artwork-list-item .container
+      background-color: $gray-darker
+
+    .details
+      margin-top: $font-size-base * 2
+
+      h3
+        margin-top: 20px
+        margin-bottom: 10px
+
+      .uploaded-by
+        margin-top: 0
+
+    .full-artwork
+      max-width: 100%
+
+    .recommended-artworks
+      text-align: center
+      margin-bottom: 0
+
+  .user
+    > div
+      display: inline-block
+      vertical-align: middle
+
+    img
+      margin-right: 5px
+
+    h4
+      margin: 0
+
+    .glyphicon
+      margin-right: 5px
