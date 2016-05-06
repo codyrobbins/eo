@@ -1,0 +1,7 @@
+/.sass-cache/
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/log/*
+!/log/.keep
+/tmp/
+/vendor/bundle/
